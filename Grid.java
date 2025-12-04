@@ -1,20 +1,30 @@
 import module java.base;
 
-public class Grid implements Iterable<Pos> {
+public class Grid<T> implements Iterable<Pos> {
     private final int rows;
     private final int cols;
+    private Function<Pos, T> cellProvider;
 
-    public Grid(int rows, int cols) {
+    /**
+     * Constructs a Grid with the given number of rows and columns.
+     * 
+     * @param rows         the number of rows in the grid
+     * @param cols         the number of columns in the grid
+     * @param cellProvider a function that provides the cell value for a given
+     *                     position
+     */
+    public Grid(int rows, int cols, Function<Pos, T> cellProvider) {
         this.rows = rows;
         this.cols = cols;
+        this.cellProvider = cellProvider;
     }
 
     public boolean contains(Pos p) {
         return p.row() >= 0 && p.row() < rows && p.col() >= 0 && p.col() < cols;
     }
 
-    public char get(char[][] cells, Pos p) {
-        return cells[p.row()][p.col()];
+    public T get(Pos p) {
+        return cellProvider.apply(p);
     }
 
     public int rows() {

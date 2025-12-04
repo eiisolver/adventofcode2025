@@ -1,27 +1,23 @@
 import module java.base;
 
 public class day4 {
-    static char[][] cells;
-    static Grid g;
+    static Grid<Character> g;
 
     public static boolean canMoveTo(Pos p) {
-        if (g.get(cells, p) != '@') {
+        if (g.get(p) != '@') {
             return false;
         }
-        var count = java.util.Arrays.stream(Pos.NESW8)
+        var count = Arrays.stream(Pos.NESW8)
                 .map(p::add)
-                .filter(neighbor -> g.contains(neighbor) && g.get(cells, neighbor) == '@')
+                .filter(neighbor -> g.contains(neighbor) && g.get(neighbor) == '@')
                 .count();
         return count < 4;
     }
 
     public static void main(String[] args) throws Exception {
         var lines = Files.readAllLines(Paths.get("4_input.txt"));
-        cells = new char[lines.size()][];
-        for (int i = 0; i < lines.size(); i++) {
-            cells[i] = lines.get(i).toCharArray();
-        }
-        g = new Grid(cells.length, cells[0].length);
+        char[][] cells = lines.stream().map(String::toCharArray).toArray(char[][]::new);
+        g = new Grid<>(lines.size(), lines.get(0).length(), p -> cells[p.row()][p.col()]);
         long part1 = g.stream().filter(day4::canMoveTo).count();
         System.out.println("Part 1: " + part1);
         long part2 = 0;
