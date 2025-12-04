@@ -1,3 +1,5 @@
+import module java.base;
+
 public class Grid implements Iterable<Pos> {
     private final int rows;
     private final int cols;
@@ -24,12 +26,11 @@ public class Grid implements Iterable<Pos> {
     }
 
     @Override
-    public java.util.Iterator<Pos> iterator() {
+    public Iterator<Pos> iterator() {
         return new java.util.Iterator<>() {
             private int currentRow = 0;
             private int currentCol = 0;
 
-            @Override
             public boolean hasNext() {
                 return currentRow < rows;
             }
@@ -45,5 +46,9 @@ public class Grid implements Iterable<Pos> {
                 return nextPos;
             }
         };
+    }
+
+    public Stream<Pos> stream() {
+        return StreamSupport.stream(this.spliterator(), false);
     }
 }

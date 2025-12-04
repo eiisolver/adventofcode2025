@@ -1,5 +1,4 @@
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import module java.base;
 
 public class day4 {
     static char[][] cells;
@@ -23,24 +22,16 @@ public class day4 {
             cells[i] = lines.get(i).toCharArray();
         }
         g = new Grid(cells.length, cells[0].length);
-        long part1 = 0;
-        for (Pos p : g) {
-            if (canMoveTo(p)) {
-                part1++;
-            }
-        }
+        long part1 = g.stream().filter(day4::canMoveTo).count();
         System.out.println("Part 1: " + part1);
         long part2 = 0;
-        boolean stop = false;
-        while (!stop) {
-            stop = true;
-            for (Pos p : g) {
-                if (canMoveTo(p)) {
-                    cells[p.row()][p.col()] = '.';
-                    part2++;
-                    stop = false;
-                }
+        for (var stop = false; !stop;) {
+            var toRemove = g.stream().filter(day4::canMoveTo).toList();
+            part2 += toRemove.size();
+            for (Pos p : toRemove) {
+                cells[p.row()][p.col()] = '.';
             }
+            stop = toRemove.isEmpty();
         }
         System.out.println("Part 2: " + part2);
     }
