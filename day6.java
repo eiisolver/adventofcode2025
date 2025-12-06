@@ -12,21 +12,20 @@ public class day6 {
             var stream = nrs.stream().mapToLong(row -> Long.parseLong(row[idx]));
             if (ops[i].equals("+")) {
                 var v = stream.sum();
-                System.out.println("Adding " + v + " from column " + i);
                 result += v;
             } else if (ops[i].equals("*")) {
                 var v = stream.reduce(1, (a, b) -> a * b);
-                System.out.println("Multiplying " + v + " from column " + i);
                 result += v;
             }
         }
         System.out.println("Part 1: " + result);
     }
 
-    static int getNumberAt(List<String> nrs, int i) {
+    // Gets "vertical" number at index
+    static int getNumberAt(List<String> nrs, int index) {
         String nrAsString = nrs.stream()
-                .filter(row -> i < row.length())
-                .map(row -> String.valueOf(row.charAt(i)))
+                .filter(row -> index < row.length())
+                .map(row -> String.valueOf(row.charAt(index)))
                 .collect(Collectors.joining()).trim();
         return nrAsString.isEmpty() ? 0 : Integer.parseInt(nrAsString);
     }
