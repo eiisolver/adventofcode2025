@@ -23,28 +23,29 @@ public class day6 {
         System.out.println("Part 1: " + result);
     }
 
+    static int getNumberAt(List<String> nrs, int i) {
+        String nrAsString = nrs.stream()
+                .filter(row -> i < row.length())
+                .map(row -> String.valueOf(row.charAt(i)))
+                .collect(Collectors.joining()).trim();
+        return nrAsString.isEmpty() ? 0 : Integer.parseInt(nrAsString);
+    }
+
     static void part2(List<String> lines) {
+        char[] ops = lines.get(lines.size() - 1).toCharArray();
+        var nrs = lines.subList(0, lines.size() - 1);
+        // Length of the longest line
+        int len = nrs.stream().mapToInt(String::length).max().orElse(0);
         long part2 = 0;
         char op = '+';
         long result = 0;
-        char[] ops = lines.get(lines.size() - 1).toCharArray();
-        var nrs = lines.subList(0, lines.size() - 1);
-        int len = nrs.stream().mapToInt(String::length).max().orElse(0);
-        Function<Integer, Integer> getNumberAt = (i) -> {
-            String nrAsString = nrs.stream()
-                    .filter(row -> i < row.length())
-                    .map(row -> String.valueOf(row.charAt(i)))
-                    .collect(Collectors.joining()).trim();
-            return nrAsString.isEmpty() ? 0 : Integer.parseInt(nrAsString);
-        };
-        List<Integer> mirroredNrs = IntStream.range(0, len).mapToObj(i -> getNumberAt.apply(i)).toList();
         for (int i = 0; i < len; ++i) {
             if (i < ops.length && ops[i] != ' ') {
                 part2 += result;
                 op = ops[i];
                 result = op == '+' ? 0 : 1;
             }
-            int number = mirroredNrs.get(i);
+            int number = getNumberAt(nrs, i);
             if (op == '+') {
                 result += number;
             } else if (op == '*' && number != 0) {
@@ -53,29 +54,6 @@ public class day6 {
         }
         part2 += result;
         System.out.println("Part 2: " + part2);
-        /*
-         * for (int i = 0; i < ops.length; ++i) {
-         * if (ops[i] != ' ') {
-         * part2 += result;
-         * op = ops[i];
-         * result = op == '+' ? 0 : 1;
-         * }
-         * long number = 0;
-         * for (var row : nrs) {
-         * if (i >= row.length()) {
-         * continue;
-         * }
-         * var c = row.charAt(i);
-         * if (c != ' ') {
-         * number = 10 * number + (c - '0');
-         * }
-         * }
-         * if (op == '+') {
-         * result += number;
-         * } else if (op == '*' && number != 0) {
-         * result *= number;
-         * }
-         */
     }
 
     public static void main(String[] args) throws Exception {
