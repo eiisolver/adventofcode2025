@@ -8,8 +8,7 @@ public class day7 {
 
     public static void main(String[] args) throws Exception {
         var lines = Files.readAllLines(Paths.get("input/7.txt"));
-        var line0 = lines.get(0);
-        int tachyon = line0.indexOf('S');
+        int tachyon = lines.get(0).indexOf('S');
         Map<Integer, Long> tachyons = new HashMap<>();
         tachyons.put(tachyon, 1L);
         long part1 = 0;
