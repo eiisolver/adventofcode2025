@@ -35,7 +35,7 @@ public class day5 {
     }
 
     public static void main(String[] args) throws Exception {
-        var lines = Files.readAllLines(Paths.get("5_input.txt"));
+        var lines = Files.readAllLines(Paths.get("input/5.txt"));
         var ranges = lines.stream().takeWhile((s) -> !s.isEmpty()).map(Range::fromString).toList();
         List<Long> numbers = lines.stream().skip(ranges.size() + 1).map(Long::parseLong).toList();
         Predicate<Long> inAnyRange = (num) -> ranges.stream().anyMatch(r -> r.contains(num));

@@ -56,7 +56,7 @@ public class day6 {
     }
 
     public static void main(String[] args) throws Exception {
-        var lines = Files.readAllLines(Paths.get("6_input.txt"));
+        var lines = Files.readAllLines(Paths.get("input/6.txt"));
         part1(lines);
         part2(lines);
     }

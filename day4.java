@@ -15,7 +15,7 @@ public class day4 {
     }
 
     public static void main(String[] args) throws Exception {
-        var lines = Files.readAllLines(Paths.get("4_input.txt"));
+        var lines = Files.readAllLines(Paths.get("input/4.txt"));
         char[][] cells = lines.stream().map(String::toCharArray).toArray(char[][]::new);
         g = new Grid<>(lines.size(), lines.get(0).length(), p -> cells[p.row()][p.col()]);
         long part1 = g.stream().filter(day4::canMoveTo).count();

@@ -4,7 +4,7 @@ import java.nio.file.Paths;
 
 public class day2 {
     public static void main(String[] args) throws IOException {
-        String content = Files.readString(Paths.get("2_input.txt")).trim();
+        String content = Files.readString(Paths.get("input/2.txt")).trim();
         long part1 = 0;
         long part2 = 0;
         for (String range : content.split(",")) {

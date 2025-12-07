@@ -20,7 +20,7 @@ public class day3 {
     }
 
     public static void main(String[] args) throws Exception {
-        var lines = Files.readAllLines(Paths.get("3_input.txt"));
+        var lines = Files.readAllLines(Paths.get("input/3.txt"));
         long part1 = 0;
         long part2 = 0;
         for (var line : lines) {
