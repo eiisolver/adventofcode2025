@@ -4,6 +4,10 @@ public record Pos(int col, int row) {
         return new Pos(this.col + other.col, this.row + other.row);
     }
 
+    public int manhattan(Pos other) {
+        return Math.abs(this.col - other.col) + Math.abs(this.row - other.row);
+    }
+
     public static final Pos[] NESW8 = {
             new Pos(0, -1), // N
             new Pos(1, -1), // NE
